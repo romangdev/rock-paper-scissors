@@ -65,15 +65,27 @@ function playRound() {
 
 //get player's selection
 function getPlayerSelection() {
-    let selection = prompt('Please enter \'rock\', \'paper\', or \'scissors\'.');
+    let flag = true;
+    let selection = null;
+    //ensure selection is entered correctly
+    while (flag === true) {
+        selection = prompt('Please enter \'rock\', \'paper\', or \'scissors\'.');
+        selection = selection.toLowerCase();
+        if (selection !== "rock" && selection != "paper" && selection != "scissors") {
+            alert("Looks like you entered your selection incorreclty. Please try again.");
+        }
+        else {
+            flag = false;
+        }
+    }
     return selection;
 }
 
+//run full game
 function game() {
     let roundResult = null;
     let playerScore = 0;
     let computerScore = 0;
-
     //run 5 rounds and tally scores
     for (let i = 0; i < 5; i++) {
         roundResult = playRound();
@@ -84,7 +96,6 @@ function game() {
             computerScore++;
         }
     }
-
     //report score result
     if (playerScore === computerScore) {
         console.log("The final result is a tie!!!\nYou: " + playerScore + "\nComputer: " + computerScore);
