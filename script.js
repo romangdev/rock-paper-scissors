@@ -3,7 +3,7 @@ function computerPlay() {
     let numChoice = Math.random();
     numChoice = numChoice.toFixed(2);
     numChoice *= 100;
-    //set choice between 1 and 99
+    //set random number between 1 and 99
     if (numChoice === 100) {
         numChoice -= 1;
     }
