@@ -23,12 +23,9 @@ function computerPlay() {
 }
 
 //Sees if player or computer won
-function playRound() {
-    let playerSelection = getPlayerSelection();
-    let computerSelection = computerPlay();
-
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
+function playRound(playerSelection, computerSelection) {
+    playerSelection = getPlayerSelection().toLowerCase();
+    computerSelection = computerPlay().toLowerCase();
 
     if (playerSelection === computerSelection) {
         console.log('The computer threw ' + computerSelection + '. It\'s a tie!');
