@@ -103,39 +103,73 @@ function game() {
     }
 }
 
+// track scores then announce winner at end
+function trackScore(roundResult) {
+    if (roundResult === 'player') {
+        playerScore++;
+    }
+    else if (roundResult === 'computer') {
+        computerScore++;
+    }
+    tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
+    if (playerScore === 5) {
+        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+        That's it, YOU WIN!`;
+        playerScore = 0;
+        computerScore = 0;
+    }
+    else if (computerScore === 5) {
+        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+        Whomp whomp....you LOSE!`;
+        playerScore = 0;
+        computerScore = 0;
+    }
+}
+
+const rockButton = document.querySelector(".rock");
+const paperButton = document.querySelector(".paper");
+const scissorsButton = document.querySelector(".scissors");
+let key = null;
+
+rockButton.remove();
+paperButton.remove();
+scissorsButton.remove();
+
+const welcomeContainer = document.createElement("div");
+welcomeContainer.classList.add("welcome-container");
+document.body.appendChild(welcomeContainer);
+
+const welcomeMessage = document.createElement("h1");
+welcomeMessage.classList.add("welcome-message");
+welcomeContainer.appendChild(welcomeMessage);
+welcomeMessage.textContent = "Rock, Paper, Scissors... Are You READY?!?";
+
+const pressEnter = document.createElement("p");
+pressEnter.classList.add("press-enter");
+welcomeContainer.appendChild(pressEnter);
+pressEnter.textContent = "Press \"ENTER\" Key To Begin";
+
+document.addEventListener("keydown", (e) => {
+    key = e.key;
+    console.log(key);
+});
+
+const allDivs = document.querySelectorAll("div");
+const results = document.querySelector(".results");
+const tally = document.querySelector(".tally");
+const buttons = document.querySelectorAll("button");
+
 let roundResult = null;
 let playerScore = 0;
 let computerScore = 0;
 let flag = false;
-const buttons = document.querySelectorAll("button");
 
 
-    // run one round when button is clicked with correct player selection
+// run one round when button is clicked with correct player selection
 buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
         let playerSelection = e.target.className;
         roundResult = playRound(playerSelection);
-        if (roundResult === 'player') {
-            playerScore++;
-        }
-        else if (roundResult === 'computer') {
-            computerScore++;
-        }
-        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
-        if (playerScore === 5) {
-            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-            That's it, YOU WIN!`;
-            playerScore = 0;
-            computerScore = 0;
-        }
-        else if (computerScore === 5) {
-            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-            Whomp whomp....you LOSE!`;
-            playerScore = 0;
-            computerScore = 0;
-        }
+        trackScore(roundResult);
     });
 });
-
-const results = document.querySelector(".results");
-const tally = document.querySelector(".tally");
