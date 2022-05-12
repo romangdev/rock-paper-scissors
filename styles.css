@@ -47,17 +47,16 @@ table {
 	border-spacing: 0;
 }
 
-/* body {
-    display: flex;
-    justify-content: center;
-} */
-
 .welcome-container {
     background-color: yellow;
     text-align: center;
     width: 550px;
     height: 350px;
-    margin: 20vh auto;
+    /* margin: 20vh 20%; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hide {
