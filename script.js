@@ -33,19 +33,19 @@ function playRound(playerSelection, computerSelection) {
     } 
     else if (playerSelection === 'rock' && computerSelection === 'paper') {
         results.textContent = 'The computer threw ' + computerSelection + '. Paper beats rock! You lose!';
-        return 'player';
+        return 'computer';
     }
     else if (computerSelection === 'rock' && playerSelection === 'paper') {
         results.textContent = 'The computer threw ' + computerSelection + '. Paper beats rock! You win!';
-        return 'computer';
+        return 'player';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'paper') {
         results.textContent = 'The computer threw ' + computerSelection + '. Scissors beats paper! You win!';
-        return 'computer';
+        return 'player';
     }
     else if (computerSelection === 'scissors' && playerSelection === 'paper') {
         results.textContent = 'The computer threw ' + computerSelection + '. Scissors beats paper! You lose!';
-        return 'player';
+        return 'computer';
     }
     else if (playerSelection === 'scissors' && computerSelection === 'rock') {
         results.textContent = 'The computer threw ' + computerSelection + '. Rock beats scissors! You lose!';
@@ -103,13 +103,39 @@ function game() {
     }
 }
 
+let roundResult = null;
+let playerScore = 0;
+let computerScore = 0;
+let flag = false;
 const buttons = document.querySelectorAll("button");
-// run one round when button is clicked with correct player selection
+
+
+    // run one round when button is clicked with correct player selection
 buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
         let playerSelection = e.target.className;
-        playRound(playerSelection);
+        roundResult = playRound(playerSelection);
+        if (roundResult === 'player') {
+            playerScore++;
+        }
+        else if (roundResult === 'computer') {
+            computerScore++;
+        }
+        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
+        if (playerScore === 5) {
+            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+            That's it, YOU WIN!`;
+            playerScore = 0;
+            computerScore = 0;
+        }
+        else if (computerScore === 5) {
+            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+            Whomp whomp....you LOSE!`;
+            playerScore = 0;
+            computerScore = 0;
+        }
     });
 });
 
 const results = document.querySelector(".results");
+const tally = document.querySelector(".tally");
