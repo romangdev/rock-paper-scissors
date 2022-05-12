@@ -59,3 +59,7 @@ table {
     height: 350px;
     margin: 20vh auto;
 }
+
+.hide {
+    display: none;
+}

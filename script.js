@@ -131,9 +131,9 @@ const paperButton = document.querySelector(".paper");
 const scissorsButton = document.querySelector(".scissors");
 let key = null;
 
-rockButton.remove();
-paperButton.remove();
-scissorsButton.remove();
+rockButton.classList.add("hide");
+paperButton.classList.add("hide");
+scissorsButton.classList.add("hide");
 
 const welcomeContainer = document.createElement("div");
 welcomeContainer.classList.add("welcome-container");
@@ -149,9 +149,16 @@ pressEnter.classList.add("press-enter");
 welcomeContainer.appendChild(pressEnter);
 pressEnter.textContent = "Press \"ENTER\" Key To Begin";
 
+// If "enter" key is pressed remove welcome message and reveal RPS options
 document.addEventListener("keydown", (e) => {
     key = e.key;
     console.log(key);
+    if (key === "Enter") {
+        welcomeContainer.remove();
+        rockButton.classList.remove("hide");
+        paperButton.classList.remove("hide");
+        scissorsButton.classList.remove("hide");
+    }
 });
 
 const allDivs = document.querySelectorAll("div");
