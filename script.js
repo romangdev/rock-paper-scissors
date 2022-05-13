@@ -103,6 +103,12 @@ function game() {
     }
 }
 
+
+const replayBox = document.createElement("div");
+replayBox.classList.add("replay-box");
+const replayScore = document.createElement("h2");
+replayScore.classList.add("replay-score");
+
 // track scores then announce winner at end
 function trackScore(roundResult) {
     if (roundResult === 'player') {
@@ -113,16 +119,50 @@ function trackScore(roundResult) {
     }
     tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
     if (playerScore === 5) {
+        if (replayBox.classList.contains("hide")) {
+            replayBox.classList.remove("hide");
+        }
         tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
         That's it, YOU WIN!`;
+
+        document.body.appendChild(replayBox);
+        replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+        "Enter" to play again!`;
+        replayBox.appendChild(replayScore);
+
         playerScore = 0;
         computerScore = 0;
+
+        document.addEventListener("keydown", (e) => {
+            let key = e.key;
+            console.log(key);
+            if (key === "Enter") {
+                replayBox.classList.add("hide");
+            }
+        });
     }
     else if (computerScore === 5) {
+        if (replayBox.classList.contains("hide")) {
+            replayBox.classList.remove("hide");
+        }
         tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-        Whomp whomp....you LOSE!`;
+        Whomp whomp....YOU LOSE!`;
+
+        document.body.appendChild(replayBox);
+        replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+        "Enter" to play again!`;
+        replayBox.appendChild(replayScore);
+
         playerScore = 0;
         computerScore = 0;
+
+        document.addEventListener("keydown", (e) => {
+            let key = e.key;
+            console.log(key);
+            if (key === "Enter") {
+                replayBox.classList.add("hide");
+            }
+        });
     }
 }
 
@@ -135,6 +175,7 @@ rockButton.classList.add("hide");
 paperButton.classList.add("hide");
 scissorsButton.classList.add("hide");
 
+// create and display welcome box
 const welcomeContainer = document.createElement("div");
 welcomeContainer.classList.add("welcome-container");
 document.body.appendChild(welcomeContainer);
