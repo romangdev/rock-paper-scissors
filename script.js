@@ -118,44 +118,33 @@ function trackScore(roundResult) {
         computerScore++;
     }
     tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
-    if (playerScore === 5) {
+    if (playerScore === 5 || computerScore === 5) {
+        // reveal final score box
         if (replayBox.classList.contains("hide")) {
             replayBox.classList.remove("hide");
         }
-        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-        That's it, YOU WIN!`;
 
-        document.body.appendChild(replayBox);
-        replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-        "Enter" to play again!`;
+        if (playerScore === 5) {
+            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+            That's it, YOU WIN!`;
+    
+            document.body.appendChild(replayBox);
+            replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+            "Enter" to play again!`;
+        }
+        else if (computerScore === 5) {
+            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+            Whomp whomp....YOU LOSE!`;
+    
+            document.body.appendChild(replayBox);
+            replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+            "Enter" to play again!`;
+        }
         replayBox.appendChild(replayScore);
 
         playerScore = 0;
         computerScore = 0;
-
-        document.addEventListener("keydown", (e) => {
-            let key = e.key;
-            console.log(key);
-            if (key === "Enter") {
-                replayBox.classList.add("hide");
-            }
-        });
-    }
-    else if (computerScore === 5) {
-        if (replayBox.classList.contains("hide")) {
-            replayBox.classList.remove("hide");
-        }
-        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-        Whomp whomp....YOU LOSE!`;
-
-        document.body.appendChild(replayBox);
-        replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-        "Enter" to play again!`;
-        replayBox.appendChild(replayScore);
-
-        playerScore = 0;
-        computerScore = 0;
-
+        // check to see if player hits enter to remove final score box
         document.addEventListener("keydown", (e) => {
             let key = e.key;
             console.log(key);
