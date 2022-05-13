@@ -119,27 +119,10 @@ function trackScore(roundResult) {
     }
     tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
     if (playerScore === 5 || computerScore === 5) {
+        disableRPS();
         // reveal final score box
-        if (replayBox.classList.contains("hide")) {
-            replayBox.classList.remove("hide");
-        }
-
-        if (playerScore === 5) {
-            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-            That's it, YOU WIN!`;
-    
-            document.body.appendChild(replayBox);
-            replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-            "Enter" to play again!`;
-        }
-        else if (computerScore === 5) {
-            tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-            Whomp whomp....YOU LOSE!`;
-    
-            document.body.appendChild(replayBox);
-            replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-            "Enter" to play again!`;
-        }
+        toggleHideClass();
+        displayFinalResult(playerScore, computerScore)
         replayBox.appendChild(replayScore);
 
         playerScore = 0;
@@ -150,9 +133,47 @@ function trackScore(roundResult) {
             console.log(key);
             if (key === "Enter") {
                 replayBox.classList.add("hide");
+                enableRPS();
             }
         });
     }
+}
+
+function toggleHideClass() {
+    if (replayBox.classList.contains("hide")) {
+        replayBox.classList.remove("hide");
+    }
+}
+
+function displayFinalResult(playerScore, computerScore) {
+    if (playerScore === 5) {
+        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+        That's it, YOU WIN!`;
+
+        document.body.appendChild(replayBox);
+        replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+        "Enter" to play again!`;
+    }
+    else if (computerScore === 5) {
+        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
+        Whomp whomp....YOU LOSE!`;
+
+        document.body.appendChild(replayBox);
+        replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
+        "Enter" to play again!`;
+    }
+}
+
+function disableRPS() {
+    document.getElementById("rock").disabled = true;
+    document.getElementById("paper").disabled = true;
+    document.getElementById("scissors").disabled = true;
+}
+
+function enableRPS() {
+    document.getElementById("rock").disabled = false;
+    document.getElementById("paper").disabled = false;
+    document.getElementById("scissors").disabled = false;
 }
 
 const rockButton = document.querySelector(".rock");
