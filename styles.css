@@ -120,8 +120,14 @@ button:hover {
     border: red 2px solid;
 }
 
+.results {
+    font-size: 25px;
+    text-align: center;
+}
+
 .tally {
     padding-top: 20px;
+    font-size: 20px;
 }
 
 .welcome-message {
