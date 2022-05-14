@@ -117,7 +117,10 @@ function trackScore(roundResult) {
         // reveal final score box
         toggleHideClass();
         displayFinalResult(playerScore, computerScore)
-        replayBox.appendChild(replayScore);
+        replayBox.appendChild(replayWinner);
+        replayBox.appendChild(replayScoreText);
+        replayBox.appendChild(replayScoreNumbers);
+        replayBox.appendChild(replayEnter);
 
         playerScore = 0;
         computerScore = 0;
@@ -142,11 +145,17 @@ function toggleHideClass() {
 function displayFinalResult(playerScore, computerScore) {
     if (playerScore === 5) {
         document.body.appendChild(replayBox);
-        replayScore.innerText = `Computer threw ${computerPlay()}. You win!\n--- FINAL SCORE ---\nHuman: ${playerScore}  Computer: ${computerScore}\nPress "Enter" to play again!`;
+        replayWinner.innerText = `Computer threw ${computerPlay()}. You win!`;
+        replayScoreText.innerText = "--- FINAL SCORE ---";
+        replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
+        replayEnter.innerText = "Press \"Enter\" to play again!";
     }
     else if (computerScore === 5) {
         document.body.appendChild(replayBox);
-        replayScore.innerText = `Computer threw ${computerPlay()}. You lose!\n--- FINAL SCORE ---\nHuman: ${playerScore}  Computer: ${computerScore}\nPress "Enter" to play again!`;
+        replayWinner.innerText = `Computer threw ${computerPlay()}. You lose!`;
+        replayScoreText.innerText = "--- FINAL SCORE ---";
+        replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
+        replayEnter.innerText = "Press \"Enter\" to play again!";
     }
 }
 
@@ -185,6 +194,7 @@ const pressEnter = document.createElement("p");
 let blink_speed = 350; // every 1000 == 1 second, adjust to suit
 let t = setInterval(function () {
     pressEnter.style.visibility = (pressEnter.style.visibility == 'hidden' ? '' : 'hidden');
+    replayEnter.style.visibility = (replayEnter.style.visibility == 'hidden' ? '' : 'hidden');
 }, blink_speed);
 
 // If "enter" key is pressed remove welcome message and reveal RPS options
@@ -213,8 +223,14 @@ const buttons = document.querySelectorAll("button");
 
 const replayBox = document.createElement("div");
 replayBox.classList.add("replay-box");
-const replayScore = document.createElement("h2");
-replayScore.classList.add("replay-score");
+const replayWinner = document.createElement("h2");
+replayWinner.classList.add("replay-winner");
+const replayScoreText = document.createElement("div");
+replayScoreText.classList.add("replay-score-text");
+const replayScoreNumbers = document.createElement("div");
+replayScoreNumbers.classList.add("replay-score-numbers");
+const replayEnter = document.createElement("div");
+replayEnter.classList.add("replay-enter");
 
 const rockButton = document.querySelector(".rock");
 const paperButton = document.querySelector(".paper");

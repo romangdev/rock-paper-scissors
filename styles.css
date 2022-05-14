@@ -74,12 +74,14 @@ table {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 25px;
 }
 
-.replay-score {
-    color: black;
+.replay-winner {
+    font-size: 25px;
 }
 
 .hide {
@@ -127,5 +129,23 @@ button:hover {
 }
 
 .press-enter {
+    font-size: 18px;
+}
+
+.replay-winner {
+    font-size: 25px;
+}
+
+.replay-score-text {
+    font-size: 20px;
+    font-style: italic;
+}
+
+.replay-score-numbers {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.replay-enter {
     font-size: 18px;
 }
