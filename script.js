@@ -1,4 +1,4 @@
-//randomly return rock, paper, or scissors
+//randomly return rock, paper, or scissors as computer choice
 function computerPlay() {
     let numChoice = Math.random();
     numChoice = numChoice.toFixed(2);
@@ -22,7 +22,7 @@ function computerPlay() {
     }
 }
 
-//Sees if player or computer won
+// Check if player or computer won
 function playRound(playerSelection, computerSelection) {
 
     computerSelection = computerPlay().toLowerCase();
@@ -103,12 +103,6 @@ function game() {
     }
 }
 
-
-const replayBox = document.createElement("div");
-replayBox.classList.add("replay-box");
-const replayScore = document.createElement("h2");
-replayScore.classList.add("replay-score");
-
 // track scores then announce winner at end
 function trackScore(roundResult) {
     if (roundResult === 'player') {
@@ -130,10 +124,10 @@ function trackScore(roundResult) {
         // check to see if player hits enter to remove final score box
         document.addEventListener("keydown", (e) => {
             let key = e.key;
-            console.log(key);
             if (key === "Enter") {
                 replayBox.classList.add("hide");
                 enableRPS();
+                tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
             }
         });
     }
@@ -147,34 +141,80 @@ function toggleHideClass() {
 
 function displayFinalResult(playerScore, computerScore) {
     if (playerScore === 5) {
-        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-        That's it, YOU WIN!`;
-
         document.body.appendChild(replayBox);
-        replayScore.textContent = `You win! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-        "Enter" to play again!`;
+        replayScore.innerText = `Computer threw ${computerPlay()}. You win!\n--- FINAL SCORE ---\nHuman: ${playerScore}  Computer: ${computerScore}\nPress "Enter" to play again!`;
     }
     else if (computerScore === 5) {
-        tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore} \n
-        Whomp whomp....YOU LOSE!`;
-
         document.body.appendChild(replayBox);
-        replayScore.textContent = `You lose! FINAL SCORE --- \nHuman: ${playerScore}  Computer: ${computerScore} \nPress
-        "Enter" to play again!`;
+        replayScore.innerText = `Computer threw ${computerPlay()}. You lose!\n--- FINAL SCORE ---\nHuman: ${playerScore}  Computer: ${computerScore}\nPress "Enter" to play again!`;
     }
 }
 
+// hide buttons
 function disableRPS() {
     document.getElementById("rock").disabled = true;
     document.getElementById("paper").disabled = true;
     document.getElementById("scissors").disabled = true;
 }
 
+// show buttons
 function enableRPS() {
     document.getElementById("rock").disabled = false;
     document.getElementById("paper").disabled = false;
     document.getElementById("scissors").disabled = false;
 }
+
+// create and display welcome box
+function displayWelcomeBox() {
+    welcomeContainer.classList.add("welcome-container");
+    document.body.appendChild(welcomeContainer);
+
+    welcomeMessage.classList.add("welcome-message");
+    welcomeContainer.appendChild(welcomeMessage);
+    welcomeMessage.textContent = "Ultimate: Rock, Paper, Scissors!";
+
+    pressEnter.classList.add("press-enter");
+    welcomeContainer.appendChild(pressEnter);
+    pressEnter.innerText = "\n\n>> Press \"ENTER\" Key To Begin <<";
+} 
+
+const welcomeContainer = document.createElement("div");
+const welcomeMessage = document.createElement("h1");
+const pressEnter = document.createElement("p");
+
+let blink_speed = 350; // every 1000 == 1 second, adjust to suit
+let t = setInterval(function () {
+    pressEnter.style.visibility = (pressEnter.style.visibility == 'hidden' ? '' : 'hidden');
+}, blink_speed);
+
+// If "enter" key is pressed remove welcome message and reveal RPS options
+function removeWelcomeBox(key) {
+    welcomeContainer.remove();
+    rockButton.classList.remove("hide");
+    paperButton.classList.remove("hide");
+    scissorsButton.classList.remove("hide");
+    tally.textContent = `Your Score: 0 \n Computer Score: 0`;
+    results.textContent = 'First to 5 wins. Will it be you??';
+}
+
+displayWelcomeBox();
+
+document.addEventListener("keydown", (e) => {
+    key = e.key;
+    if (key === "Enter") {
+        removeWelcomeBox();
+    }
+});
+
+const allDivs = document.querySelectorAll("div");
+const results = document.querySelector(".results");
+const tally = document.querySelector(".tally");
+const buttons = document.querySelectorAll("button");
+
+const replayBox = document.createElement("div");
+replayBox.classList.add("replay-box");
+const replayScore = document.createElement("h2");
+replayScore.classList.add("replay-score");
 
 const rockButton = document.querySelector(".rock");
 const paperButton = document.querySelector(".paper");
@@ -184,38 +224,6 @@ let key = null;
 rockButton.classList.add("hide");
 paperButton.classList.add("hide");
 scissorsButton.classList.add("hide");
-
-// create and display welcome box
-const welcomeContainer = document.createElement("div");
-welcomeContainer.classList.add("welcome-container");
-document.body.appendChild(welcomeContainer);
-
-const welcomeMessage = document.createElement("h1");
-welcomeMessage.classList.add("welcome-message");
-welcomeContainer.appendChild(welcomeMessage);
-welcomeMessage.textContent = "Rock, Paper, Scissors... Are You READY?!?";
-
-const pressEnter = document.createElement("p");
-pressEnter.classList.add("press-enter");
-welcomeContainer.appendChild(pressEnter);
-pressEnter.textContent = "Press \"ENTER\" Key To Begin";
-
-// If "enter" key is pressed remove welcome message and reveal RPS options
-document.addEventListener("keydown", (e) => {
-    key = e.key;
-    console.log(key);
-    if (key === "Enter") {
-        welcomeContainer.remove();
-        rockButton.classList.remove("hide");
-        paperButton.classList.remove("hide");
-        scissorsButton.classList.remove("hide");
-    }
-});
-
-const allDivs = document.querySelectorAll("div");
-const results = document.querySelector(".results");
-const tally = document.querySelector(".tally");
-const buttons = document.querySelectorAll("button");
 
 let roundResult = null;
 let playerScore = 0;
