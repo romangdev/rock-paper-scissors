@@ -212,6 +212,11 @@ function displayFinalResult(playerScore, computerScore) {
         })
         results.classList.add("hide");
         tally.classList.add("hide");
+        icons.forEach((icon) => {
+            if (!(icon.classList.contains("hide"))) {
+                icon.classList.add("hide");
+            }
+        });
         if (playerScore === 5) {
             replayWinner.innerText = `Computer threw ${computerPlay()}. You win!`;
             replayScoreText.innerText = "--- FINAL SCORE ---";
@@ -290,6 +295,11 @@ document.addEventListener("keydown", (e) => {
 // run one round when button is clicked with correct player selection
 buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
+        icons.forEach((icon) => {
+            if (!(icon.classList.contains("hide"))) {
+                icon.classList.add("hide");
+            }
+        });
         let playerSelection = e.target.className;
         roundResult = playRound(playerSelection);
         trackScore(roundResult);
