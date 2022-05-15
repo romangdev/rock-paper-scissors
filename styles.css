@@ -106,7 +106,19 @@ img {
     align-items: center;
 }
 
+.player > img {
+    position: fixed;
+    top: 5%;
+} 
+
+.computer > img {
+    position: fixed;
+    top: 6%;
+    right: 5%;
+} 
+
 body {
+    padding-top: 150px;
     font-family: 'Roboto', 'Times New Roman', Times, serif;
     display: flex;
     flex-direction: column;
@@ -118,6 +130,7 @@ body {
 }
 
 .buttons {
+    padding-top: 100px;
     padding-bottom: 50px;
     display: flex;
     justify-content: space-between;

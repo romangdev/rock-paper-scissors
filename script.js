@@ -1,3 +1,45 @@
+const replayBox = document.createElement("div");
+replayBox.classList.add("replay-box");
+const replayWinner = document.createElement("h2");
+replayWinner.classList.add("replay-winner");
+const replayScoreText = document.createElement("div");
+replayScoreText.classList.add("replay-score-text");
+const replayScoreNumbers = document.createElement("div");
+replayScoreNumbers.classList.add("replay-score-numbers");
+const replayEnter = document.createElement("div");
+replayEnter.classList.add("replay-enter");
+
+const rockButton = document.querySelector(".rock");
+const paperButton = document.querySelector(".paper");
+const scissorsButton = document.querySelector(".scissors");
+let key = null;
+
+rockButton.classList.add("hide");
+paperButton.classList.add("hide");
+scissorsButton.classList.add("hide");
+
+let roundResult = null;
+let playerScore = 0;
+let computerScore = 0;
+let flag = false;
+
+const welcomeContainer = document.createElement("div");
+const welcomeMessage = document.createElement("h1");
+const pressEnter = document.createElement("p");
+
+const allDivs = document.querySelectorAll("div");
+const results = document.querySelector(".results");
+const tally = document.querySelector(".tally");
+const buttons = document.querySelectorAll("button");
+const icons = document.querySelectorAll("img");
+
+const playerRock = document.getElementById("player-rock")
+const playerPaper = document.getElementById("player-paper")
+const playerScissors = document.getElementById("player-scissors")
+const computerRock = document.getElementById("computer-rock")
+const computerPaper = document.getElementById("computer-paper")
+const computerScissors = document.getElementById("computer-scissors")
+
 //randomly return rock, paper, or scissors as computer choice
 function computerPlay() {
     let numChoice = Math.random();
@@ -26,6 +68,26 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
 
     computerSelection = computerPlay().toLowerCase();
+
+    if (computerSelection === "rock") {
+        computerRock.classList.remove("hide");
+    }
+    else if (computerSelection === "paper") {
+        computerPaper.classList.remove("hide");
+    }
+    else if (computerSelection === "scissors") {
+        computerScissors.classList.remove("hide");
+    }
+
+    if (playerSelection === "rock") {
+        playerRock.classList.remove("hide");
+    }
+    else if (playerSelection === "paper") {
+        playerPaper.classList.remove("hide");
+    }
+    else if (playerSelection === "scissors") {
+        playerScissors.classList.remove("hide");
+    }
 
     if (playerSelection === computerSelection) {
         results.textContent = 'The computer threw ' + computerSelection + '. It\'s a tie!';
@@ -193,10 +255,6 @@ function displayWelcomeBox() {
     pressEnter.innerText = "\n\n>> Press \"ENTER\" Key To Begin <<";
 } 
 
-const welcomeContainer = document.createElement("div");
-const welcomeMessage = document.createElement("h1");
-const pressEnter = document.createElement("p");
-
 let blink_speed = 350; // every 1000 == 1 second, adjust to suit
 let t = setInterval(function () {
     pressEnter.style.visibility = (pressEnter.style.visibility == 'hidden' ? '' : 'hidden');
@@ -215,7 +273,12 @@ function removeWelcomeBox(key) {
     results.textContent = 'First to 5 wins. Will it be you??';
 }
 
+
 displayWelcomeBox();
+
+icons.forEach((icon) => {
+    icon.classList.add("hide");
+});
 
 document.addEventListener("keydown", (e) => {
     key = e.key;
@@ -223,37 +286,6 @@ document.addEventListener("keydown", (e) => {
         removeWelcomeBox();
     }
 });
-
-const allDivs = document.querySelectorAll("div");
-const results = document.querySelector(".results");
-const tally = document.querySelector(".tally");
-const buttons = document.querySelectorAll("button");
-
-const replayBox = document.createElement("div");
-replayBox.classList.add("replay-box");
-const replayWinner = document.createElement("h2");
-replayWinner.classList.add("replay-winner");
-const replayScoreText = document.createElement("div");
-replayScoreText.classList.add("replay-score-text");
-const replayScoreNumbers = document.createElement("div");
-replayScoreNumbers.classList.add("replay-score-numbers");
-const replayEnter = document.createElement("div");
-replayEnter.classList.add("replay-enter");
-
-const rockButton = document.querySelector(".rock");
-const paperButton = document.querySelector(".paper");
-const scissorsButton = document.querySelector(".scissors");
-let key = null;
-
-rockButton.classList.add("hide");
-paperButton.classList.add("hide");
-scissorsButton.classList.add("hide");
-
-let roundResult = null;
-let playerScore = 0;
-let computerScore = 0;
-let flag = false;
-
 
 // run one round when button is clicked with correct player selection
 buttons.forEach((button) => {
