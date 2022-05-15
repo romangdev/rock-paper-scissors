@@ -18,6 +18,7 @@ rockButton.classList.add("hide");
 paperButton.classList.add("hide");
 scissorsButton.classList.add("hide");
 
+let compSelec = null;
 let roundResult = null;
 let playerScore = 0;
 let computerScore = 0;
@@ -68,25 +69,44 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
 
     computerSelection = computerPlay().toLowerCase();
+    compSelec = computerSelection;
+
+    disableRPS();
+
+    setTimeout(function(){
+        enableRPS();
+    }, 300);
 
     if (computerSelection === "rock") {
-        computerRock.classList.remove("hide");
+        setTimeout(function(){
+            computerRock.classList.remove("hide");
+        }, 300);
     }
     else if (computerSelection === "paper") {
-        computerPaper.classList.remove("hide");
+        setTimeout(function(){
+            computerPaper.classList.remove("hide");
+        }, 300);
     }
     else if (computerSelection === "scissors") {
-        computerScissors.classList.remove("hide");
+        setTimeout(function(){
+            computerScissors.classList.remove("hide");
+        }, 300);
     }
 
     if (playerSelection === "rock") {
-        playerRock.classList.remove("hide");
+        setTimeout(function(){
+            playerRock.classList.remove("hide");
+        }, 300);
     }
     else if (playerSelection === "paper") {
-        playerPaper.classList.remove("hide");
+        setTimeout(function(){
+            playerPaper.classList.remove("hide");
+        }, 300);
     }
     else if (playerSelection === "scissors") {
-        playerScissors.classList.remove("hide");
+        setTimeout(function(){
+            playerScissors.classList.remove("hide");
+        }, 300);
     }
 
     if (playerSelection === computerSelection) {
@@ -175,17 +195,18 @@ function trackScore(roundResult) {
     }
     tally.textContent = `Your Score: ${playerScore} \n Computer Score: ${computerScore}`;
     if (playerScore === 5 || computerScore === 5) {
-        disableRPS();
-        // reveal final score box
-        toggleHideClass();
-        displayFinalResult(playerScore, computerScore)
-        replayBox.appendChild(replayWinner);
-        replayBox.appendChild(replayScoreText);
-        replayBox.appendChild(replayScoreNumbers);
-        replayBox.appendChild(replayEnter);
-
-        playerScore = 0;
-        computerScore = 0;
+        setTimeout(() => {
+            // reveal final score box
+            toggleHideClass();
+            displayFinalResult(playerScore, computerScore)
+            replayBox.appendChild(replayWinner);
+            replayBox.appendChild(replayScoreText);
+            replayBox.appendChild(replayScoreNumbers);
+            replayBox.appendChild(replayEnter);
+    
+            playerScore = 0;
+            computerScore = 0;
+        }, 300);
         // check to see if player hits enter to remove final score box
         document.addEventListener("keydown", (e) => {
             let key = e.key;
@@ -209,7 +230,7 @@ function displayFinalResult(playerScore, computerScore) {
         document.body.appendChild(replayBox);
         buttons.forEach((button) => {
             button.classList.add("hide");
-        })
+        });
         results.classList.add("hide");
         tally.classList.add("hide");
         icons.forEach((icon) => {
@@ -218,13 +239,13 @@ function displayFinalResult(playerScore, computerScore) {
             }
         });
         if (playerScore === 5) {
-            replayWinner.innerText = `Computer threw ${computerPlay()}. You win!`;
+            replayWinner.innerText = `Computer threw ${compSelec}. You win!`;
             replayScoreText.innerText = "--- FINAL SCORE ---";
             replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
             replayEnter.innerText = "Press \"Enter\" to play again!";
         }
         else if (computerScore === 5) {
-            replayWinner.innerText = `Computer threw ${computerPlay()}. You lose!`;
+            replayWinner.innerText = `Computer threw ${compSelec}. You lose!`;
             replayScoreText.innerText = "--- FINAL SCORE ---";
             replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
             replayEnter.innerText = "Press \"Enter\" to play again!";
