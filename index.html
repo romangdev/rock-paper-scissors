@@ -7,14 +7,31 @@
     <title>Rock Paper Scissors</title>
     <script src="script.js" defer></script>
     <link href="styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="choices">
+        <div class="player">
+            <img src="img/rock.png">
+            <!-- <img src="img/paper.png">
+            <img src="img/scissors.png"> -->
+        </div>
+        <p class="vs">VS</p>
+        <div class="computer">
+            <img src="img/rock.png">
+            <!-- <img src="img/paper.png">
+            <img src="img/scissors.png"> -->
+        </div>
+    </div>
+
     <div class="buttons">
         <button class="rock" id="rock">ROCK</button>
         <button class="paper" id="paper">PAPER</button>
         <button class="scissors" id="scissors">SCISSORS</button>
     </div>
-
+    
     <div class="results"></div>
     <div class="tally"></div>
 </body>

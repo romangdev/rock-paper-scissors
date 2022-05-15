@@ -143,19 +143,25 @@ function toggleHideClass() {
 }
 
 function displayFinalResult(playerScore, computerScore) {
-    if (playerScore === 5) {
+    if (playerScore === 5 || computerScore === 5) {
         document.body.appendChild(replayBox);
-        replayWinner.innerText = `Computer threw ${computerPlay()}. You win!`;
-        replayScoreText.innerText = "--- FINAL SCORE ---";
-        replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
-        replayEnter.innerText = "Press \"Enter\" to play again!";
-    }
-    else if (computerScore === 5) {
-        document.body.appendChild(replayBox);
-        replayWinner.innerText = `Computer threw ${computerPlay()}. You lose!`;
-        replayScoreText.innerText = "--- FINAL SCORE ---";
-        replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
-        replayEnter.innerText = "Press \"Enter\" to play again!";
+        buttons.forEach((button) => {
+            button.classList.add("hide");
+        })
+        results.classList.add("hide");
+        tally.classList.add("hide");
+        if (playerScore === 5) {
+            replayWinner.innerText = `Computer threw ${computerPlay()}. You win!`;
+            replayScoreText.innerText = "--- FINAL SCORE ---";
+            replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
+            replayEnter.innerText = "Press \"Enter\" to play again!";
+        }
+        else if (computerScore === 5) {
+            replayWinner.innerText = `Computer threw ${computerPlay()}. You lose!`;
+            replayScoreText.innerText = "--- FINAL SCORE ---";
+            replayScoreNumbers.innerText = `Human: ${playerScore}   Computer: ${computerScore}`;
+            replayEnter.innerText = "Press \"Enter\" to play again!";
+        }
     }
 }
 
@@ -203,6 +209,8 @@ function removeWelcomeBox(key) {
     rockButton.classList.remove("hide");
     paperButton.classList.remove("hide");
     scissorsButton.classList.remove("hide");
+    results.classList.remove("hide");
+    tally.classList.remove("hide");
     tally.textContent = `Your Score: 0 \n Computer Score: 0`;
     results.textContent = 'First to 5 wins. Will it be you??';
 }
